@@ -1,0 +1,3 @@
+id	url	page
+f34c2c8c273939d283d86de24abf83fa	https://www.mofa.gov.qa//en/all-mofa-news/details/1444/09/14/hh-the-amir-receives-written-message-from-egyptian-president	1
+bd8fad88426e392aa8551d3342898ad4	https://www.mofa.gov.qa//en/all-mofa-news/details/1444/09/14/qatari-uae-official-delegations-discuss-al-ula-declaration-implementation-mechanisms-in-abu-dhabi	1
