@@ -1,5 +1,5 @@
 # Enter your student ID here
-ID = ""
+ID = "00030973"
 
 # Path to the .txt file that will have the collected URLs
 LINK_LIST_PATH = "data/link_list.txt"

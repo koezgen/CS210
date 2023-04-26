@@ -25,7 +25,9 @@ def get_page_content(page_url):
     ###############################
 
     # Save the page content (html) in the variable "page_html"
-    page_html = ""
+
+    htmldata = requests.get(page_url)
+    page_html = htmldata.text
 
     ###############################
 

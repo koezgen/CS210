@@ -31,7 +31,42 @@ def extract_content_from_page(file_path):
 
     # WRITE YOUR CODE HERE
     ##################################
+    
+    # First I need to parse the HTML content of the page using Beautiful Soup.
+    parsedPage = bs(open(file_path, "r").read())
+    
+    # For date part of the dict object
+    parsed_data["date"] =  parsedPage.find("span", {"class" : "published"}).find("time")["datetime"]   
 
+    # There are two classes that do the same thing in different pages. This is why this conditional
+    # Statement is required.
+    if parsedPage.find("section", {"class" : "gridModule-fullwidth masthead masthead--publikationer"}):
+        parsed_data["title"] =  parsedPage.find("section", {"class" : "gridModule-fullwidth masthead masthead--publikationer"}).find("h1").text
+    else:
+        parsed_data["title"] =  parsedPage.find("section", {"class" : "gridModule-fullwidth masthead masthead--article"}).find("h1").text
+
+    # This can be empty, that is why it should be like this.
+    if parsedPage.find("p", {"class" : "ingress has-wordExplanation"}):
+        parsed_data["content"] =  parsedPage.find("p", {"class" : "ingress has-wordExplanation"}).text
+    else:
+        parsed_data["content"] = ""
+
+    # There are two classes that correspond to the overall body of the page.
+    # This is why a conditional statement is required for conditional parsing.
+    if parsedPage.find("div", {"class" : "has-wordExplanation"}):
+        if len(parsedPage.find("div", {"class" : "has-wordExplanation"}))> 0:
+            for ps in parsedPage.find_all("div", {"class" : "has-wordExplanation"}):
+                for paragraphs in ps.find_all("p"):
+                    # Every p object is a paragraph. Newline is lost in transaction.
+                    parsed_data["content"] += "\n" + paragraphs.text
+
+    elif parsedPage.find("div", {"class" : "has-wordExplanation cl"}):
+        if len(parsedPage.find("div", {"class" : "has-wordExplanation cl"}))> 0:
+            for ps in parsedPage.find_all("div", {"class" : "has-wordExplanation cl"}):
+                for paragraphs in ps.find_all("p"):
+                    # Every p object is a paragraph. Newline is lost in transaction.
+                    parsed_data["content"] += "\n" + paragraphs.text
+    
     ##################################
 
     return parsed_data
